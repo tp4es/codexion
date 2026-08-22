@@ -56,16 +56,42 @@ Processes vs Threads
 	| Riesgo de interferencia | Menor                      | Mayor                               |
 	| Sincronización          | IPC cuando comparten datos | Mutex, condvars, etc.               |
 Critical Sections
-Race Conditions
+	·Requires mutex to protect from differents changes simultaniously.
+	·Race Conditions
 Deadlock
+	·When a thread is permanently waiting for resources to wake up, specially important as an dongle can be taken for any 2 coders.
 Coffman Conditions
+	·If occur generate a deadloc, must eliminate at least one from: mutual exclusion, hold and wait, no preemption or cicular wait.
 Starvation
+	·A thread deads because can never reach resources. Schedule and heap.
 Scheduling
-Earliest Deadline First
-Priority Inversion
-Condition Variables
-Producer Consumer
-Resource Allocation
+	·FiFo: 
+	·EDF: 
+
+                 CONCURRENCY
+                     │
+          ┌──────────┴──────────┐
+          ▼                     ▼
+   Critical Sections      Shared Resources
+          │                     │
+          ▼                     ▼
+   Race Conditions       Resource Allocation
+                                │
+                 ┌──────────────┼──────────────┐
+                 ▼              ▼              ▼
+              Mutexes       Scheduling      Condition
+                              │              Variables
+                         ┌────┴────┐
+                         ▼         ▼
+                       FIFO       EDF
+                         │
+                         └──────┬──────
+                                ▼
+                    Deadlock / Starvation
+                         │
+                         ▼
+                  Coffman Conditions
+
 ### DATA structure
 Binary Heap
 Min Heap
