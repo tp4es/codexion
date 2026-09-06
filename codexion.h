@@ -6,14 +6,15 @@
 /*   By: tide.oli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 13:12:13 by tide.oli          #+#    #+#             */
-/*   Updated: 2026/09/06 13:25:46 by tide.oli         ###   ########.fr       */
+/*   Updated: 2026/09/06 19:21:47 by tide.oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CODEXION_H
 #define	CODEXION_H
 
-# include <stdlib.h>
+# include <limits.h>
+# include <stdio.h>
 # include <pthread.h>
 
 typedef struct config
@@ -27,5 +28,7 @@ typedef struct config
 	int		dongle_cd;
 	char	*schedule;
 }	t_config;
+
+int	setup(int len, char **input, t_config *load);
 
 #endif
