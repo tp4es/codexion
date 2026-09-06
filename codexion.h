@@ -6,7 +6,7 @@
 /*   By: tide.oli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 13:12:13 by tide.oli          #+#    #+#             */
-/*   Updated: 2026/09/06 19:21:47 by tide.oli         ###   ########.fr       */
+/*   Updated: 2026/09/06 23:03:29 by tide.oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 #define	CODEXION_H
 
 # include <limits.h>
+# include <stdlib.h>
 # include <stdio.h>
+# include <string.h>
+# include <unistd.h>
 # include <pthread.h>
 
 typedef struct config
