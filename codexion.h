@@ -6,7 +6,7 @@
 /*   By: tide.oli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 13:12:13 by tide.oli          #+#    #+#             */
-/*   Updated: 2026/09/06 23:03:29 by tide.oli         ###   ########.fr       */
+/*   Updated: 2026/09/08 23:10:51 by tide.oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,18 @@ typedef struct config
 	char	*schedule;
 }	t_config;
 
-int	setup(int len, char **input, t_config *load);
+typedef struct coders
+{
+	int	id;
+	int	state;
+	int	time_bo;
+	int	time_tc;
+	int	time_tdb;
+	int	time_trf;
+	int	n_compile_r;	//Pendiente posible dongle CD
+}	t_coder;
+
+
+int	setup(char **input, t_config *load);
 
 #endif

@@ -6,11 +6,12 @@
 /*   By: tide.oli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 13:01:37 by tide.oli          #+#    #+#             */
-/*   Updated: 2026/09/06 23:11:06 by tide.oli         ###   ########.fr       */
+/*   Updated: 2026/09/07 22:48:29 by tide.oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "codexion.h"
+# include "codexion.h"
+# include <limits.h>
 
 int	get_value(char *value)
 {
@@ -37,7 +38,7 @@ int	setup(char **input, t_config *load)
 		else
 		{
 			*values[i] = get_value(input[i]);
-			if (!*values[i])
+			if (!*values[i] || *values[i] < 0 || *values[i] > INT_MAX || *values[i] < INT_MIN)
 				return (1);
 		}
 		i++;
@@ -55,8 +56,7 @@ int	main(int argc, char **argv)
 	
 	if (argc != 9)
 		return (1);
-	if (setup((argc - 1), (argv + 1), &load))
+	if (setup((argv + 1), &load))
 		return(1);
-	printf("%d\n", load.n_coders);
 	return(0);
 }
