@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   codexion.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tide.oli <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tide-oli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 13:12:13 by tide.oli          #+#    #+#             */
-/*   Updated: 2026/09/08 23:10:51 by tide.oli         ###   ########.fr       */
+/*   Updated: 2026/09/15 01:45:48 by tide-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CODEXION_H
 #define	CODEXION_H
 
-# include <limits.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
@@ -45,5 +44,6 @@ typedef struct coders
 
 
 int	setup(char **input, t_config *load);
+void  coder_act(int n_coders, int n_compile);
 
 #endif
