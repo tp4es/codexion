@@ -1,3 +1,21 @@
  ./test.out 5 1 10000 50 50 1 5 FIFO
 
 cc -pthread main.c coders.c dongles.c -o test.out
+
+
+
+pthread_cond_wait() temporarily releases the mutex while the coder waits. Therefore, the mutex is not held while waiting. When another coder releases the dongle, the waiting coder wakes up, reacquires the mutex briefly, checks the state again, and claims the dongle.
+
+This means:
+
+A coder acquires the dongle.
+It compiles.
+It debugs.
+It releases the dongle.
+It refactors without holding the dongle.
+All coders currently receive the same pointer:
+
+
+coder->dongle = &dongle[0];
+
+

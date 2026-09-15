@@ -54,6 +54,7 @@ int	main(int argc, char **argv)
 {
 	t_config	load;
 	t_dongle	*dongles;
+	int		i;
 	
 	if (argc != 9)
 		return (1);
@@ -64,6 +65,13 @@ int	main(int argc, char **argv)
 		return (1);
 	create_dongles(load, dongles);
 	coder_act(load, dongles);
+	i = 0;
+	while (i < load.n_coders)
+	{
+		pthread_mutex_destroy(&dongles[i].d_mutex);
+		pthread_cond_destroy(&dongles[i].d_condition);
+		i++;
+	}
 	free(dongles);
 	return(0);
 }
