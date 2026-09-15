@@ -6,7 +6,7 @@
 /*   By: tide.oli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 13:01:37 by tide.oli          #+#    #+#             */
-/*   Updated: 2026/09/15 16:52:05 by tide.oli         ###   ########.fr       */
+/*   Updated: 2026/09/15 19:37:55 by tide.oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,17 @@ int	setup(char **input, t_config *load)
 int	main(int argc, char **argv)
 {
 	t_config	load;
+	t_dongle	*dongles;
 	
 	if (argc != 9)
 		return (1);
 	if (setup((argv + 1), &load))
 		return(1);
+	dongles = malloc(sizeof(*dongles) * load.n_coders);
+	if (!dongles)
+		return (1);
+	create_dongles(load, dongles);
 	coder_act(load);
+	free(dongles);
 	return(0);
 }

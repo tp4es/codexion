@@ -6,7 +6,7 @@
 /*   By: tide.oli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 13:12:13 by tide.oli          #+#    #+#             */
-/*   Updated: 2026/09/15 16:58:23 by tide.oli         ###   ########.fr       */
+/*   Updated: 2026/09/15 19:39:34 by tide.oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,14 @@ typedef struct coders
 	int	n_compile;	//Pendiente posible dongle CD
 }	t_coder;
 
+typedef struct dongle
+{
+	int	id;
+	int	dongle_cd;
+	int	state;
+}	t_dongle;
+
 void	coder_act(t_config parameters);
+void	create_dongles(t_config parameters, t_dongle *dongles);
 
 #endif
