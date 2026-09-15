@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   codexion.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tide-oli <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tide.oli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 13:12:13 by tide.oli          #+#    #+#             */
-/*   Updated: 2026/09/15 01:45:48 by tide-oli         ###   ########.fr       */
+/*   Updated: 2026/09/15 16:26:42 by tide.oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct coders
 	int	time_tc;
 	int	time_tdb;
 	int	time_trf;
-	int	n_compile_r;	//Pendiente posible dongle CD
+	int	n_compile;	//Pendiente posible dongle CD
 }	t_coder;
 
 

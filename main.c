@@ -6,7 +6,7 @@
 /*   By: tide.oli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 13:01:37 by tide.oli          #+#    #+#             */
-/*   Updated: 2026/09/07 22:48:29 by tide.oli         ###   ########.fr       */
+/*   Updated: 2026/09/15 16:26:48 by tide.oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	setup(char **input, t_config *load)
 	values[2] = &load->time_tc;
 	values[3] = &load->time_tdb;
 	values[4] = &load->time_trf;
-	values[5] = &load->n_compile_r;
+	values[5] = &load->n_compile;
 	values[6] = &load->dongle_cd;
 	while (i < 7)
 	{
@@ -58,5 +58,6 @@ int	main(int argc, char **argv)
 		return (1);
 	if (setup((argv + 1), &load))
 		return(1);
+	coder_act(load)
 	return(0);
 }

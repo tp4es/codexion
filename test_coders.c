@@ -1,16 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   coders.c                                           :+:      :+:    :+:   */
+/*   test_coders.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tide.oli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 06:04:32 by tide-oli          #+#    #+#             */
-/*   Updated: 2026/09/15 16:25:33 by tide.oli         ###   ########.fr       */
+/*   Updated: 2026/09/15 16:26:24 by tide.oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "codexion.h"
+
+typedef struct s_thread_data
+{
+	int	id;
+	int	n_compile;
+}	t_thread_data;
 
 void	*coder_routine(void *arg)
 {
@@ -28,34 +34,24 @@ void	*coder_routine(void *arg)
 	pthread_exit(NULL);
 }
 
-void	coder_load(t_coder *coder, t_config parameters, int id)
+void	coder_act(int n_coders, int n_compile)
 {
-	coder->id = id;
-	coder->state = 0;
-	coder->time_bo = parameter.bo;
-	coder->tc = parameter.tc;
-	coder->tdb = parameter.tdb;
-	coder->trf = parameter.trf;
-	coder->n_compile = parameter.n_compile;
-}
-
-void	coder_act(t_config parameters)
-{
-	
 	pthread_t	*coders;
-	t_coder		coder;
+	t_thread_data	*thread_data;
 	int			i;
 
-	coders = malloc(sizeof(pthread_t) * parameters.n_coders);
+	coders = malloc(sizeof(pthread_t) * n_coders);
 	if (!coders)
 		return ;
 	i = 0;
-	while (i < parameters.n_coders)
+	while (i < n_coders)
 	{
-		coder = malloc(sizeof(t_coder));
-		if (!coder)
+		thread_data = malloc(sizeof(t_thread_data));
+		if (!thread_data)
 			return ;
-		pthread_create(&coders[i], NULL, coder_routine, coder);
+		thread_data->id = i;
+		thread_data->n_compile = n_compile;
+		pthread_create(&coders[i], NULL, coder_routine, thread_data);
 		i++;
 	}
 	i = 0;
