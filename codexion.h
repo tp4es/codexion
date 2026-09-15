@@ -6,7 +6,7 @@
 /*   By: tide.oli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 13:12:13 by tide.oli          #+#    #+#             */
-/*   Updated: 2026/09/15 19:39:34 by tide.oli         ###   ########.fr       */
+/*   Updated: 2026/09/15 20:47:56 by tide.oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,14 @@ typedef struct config
 
 typedef struct coders
 {
-	int	id;
-	int	state;
-	int	time_bo;
-	int	time_tc;
-	int	time_tdb;
-	int	time_trf;
-	int	n_compile;	//Pendiente posible dongle CD
+	int			id;
+	int			state;
+	int			time_bo;
+	int			time_tc;
+	int			time_tdb;
+	int			time_trf;
+	int			n_compile;
+	t_dongle	*dongle;
 }	t_coder;
 
 typedef struct dongle
@@ -47,9 +48,11 @@ typedef struct dongle
 	int	id;
 	int	dongle_cd;
 	int	state;
+	pthread_mutex_t	d_mutex;
+    pthread_cond_t	d_condition;
 }	t_dongle;
 
-void	coder_act(t_config parameters);
+void	coder_act(t_config parameters, t_dongle *dongles);
 void	create_dongles(t_config parameters, t_dongle *dongles);
 
 #endif

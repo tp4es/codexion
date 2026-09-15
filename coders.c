@@ -6,7 +6,7 @@
 /*   By: tide.oli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 06:04:32 by tide-oli          #+#    #+#             */
-/*   Updated: 2026/09/15 19:23:15 by tide.oli         ###   ########.fr       */
+/*   Updated: 2026/09/15 20:47:56 by tide.oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # include <sys/time.h>
 
 static long long		g_start_time;
-static pthread_mutex_t	g_start_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 static long long	current_time_ms(void)
 {
@@ -55,7 +54,7 @@ void	*coder_routine(void *arg)
     return (NULL);
 }
 
-void	coder_load(t_coder *coder, t_config parameters, int id)
+void	coder_load(t_coder *coder, t_config parameters, int id, t_dongle *dongle)
 {
 	coder->id = id;
 	coder->state = 0;
@@ -64,17 +63,15 @@ void	coder_load(t_coder *coder, t_config parameters, int id)
 	coder->time_tdb = parameters.time_tdb;
 	coder->time_trf = parameters.time_trf;
 	coder->n_compile = parameters.n_compile;
+	coder->dongle = dongle[0];
 }
 
-void	coder_act(t_config parameters)
+void	coder_act(t_config parameters, t_dongle *dongles)
 {
 	pthread_t	*coders;
 	t_coder		*coder;
-	int		i;
+	int			i;
 
-	pthread_mutex_lock(&g_start_mutex);
-	g_start_time = 0;
-	pthread_mutex_unlock(&g_start_mutex);
 	coders = malloc(sizeof(pthread_t) * parameters.n_coders);
 	if (!coders)
 		return ;
@@ -84,7 +81,7 @@ void	coder_act(t_config parameters)
 		coder = malloc(sizeof(*coder));
 		if (!coder)
 			return ;
-		coder_load(coder, parameters, i);
+		coder_load(coder, parameters, i, dongles);
 		pthread_create(&coders[i], NULL, coder_routine, coder);
 		i++;
 	}
