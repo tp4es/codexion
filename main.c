@@ -6,7 +6,7 @@
 /*   By: tide.oli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 13:01:37 by tide.oli          #+#    #+#             */
-/*   Updated: 2026/09/15 16:26:48 by tide.oli         ###   ########.fr       */
+/*   Updated: 2026/09/15 16:52:05 by tide.oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ int	main(int argc, char **argv)
 		return (1);
 	if (setup((argv + 1), &load))
 		return(1);
-	coder_act(load)
+	coder_act(load);
 	return(0);
 }
