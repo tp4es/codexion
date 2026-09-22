@@ -6,12 +6,21 @@
 /*   By: tide.oli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 13:01:37 by tide.oli          #+#    #+#             */
-/*   Updated: 2026/09/15 20:47:56 by tide.oli         ###   ########.fr       */
+/*   Updated: 2026/09/16 15:47:39 by tide.oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "codexion.h"
 # include <limits.h>
+# include <sys/time.h>
+
+static long long	current_time_ms(void)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return ((long long)time.tv_sec * 1000 + time.tv_usec / 1000);
+}
 
 int	get_value(char *value)
 {
@@ -54,7 +63,8 @@ int	main(int argc, char **argv)
 {
 	t_config	load;
 	t_dongle	*dongles;
-	int		i;
+	int			i;
+	long long	g_start_time;
 	
 	if (argc != 9)
 		return (1);
@@ -63,8 +73,9 @@ int	main(int argc, char **argv)
 	dongles = malloc(sizeof(*dongles) * load.n_coders);
 	if (!dongles)
 		return (1);
+	g_start_time = current_time_ms();
 	create_dongles(load, dongles);
-	coder_act(load, dongles);
+	coder_act(load, dongles, g_start_time);
 	i = 0;
 	while (i < load.n_coders)
 	{

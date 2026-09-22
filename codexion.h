@@ -6,7 +6,7 @@
 /*   By: tide.oli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 13:12:13 by tide.oli          #+#    #+#             */
-/*   Updated: 2026/09/15 20:50:24 by tide.oli         ###   ########.fr       */
+/*   Updated: 2026/09/22 10:53:21 by tide.oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,20 @@ typedef struct coders
 	int			time_tdb;
 	int			time_trf;
 	int			n_compile;
+	long long	start_time;
 	t_dongle	*dongle;
 }	t_coder;
 
-void	coder_act(t_config parameters, t_dongle *dongles);
+typedef	struct heap
+{
+	typedef	struct heap *order;
+	int					id_request;
+	t_coder				coder;
+}	t_heap;
+
+
+void	coder_act(t_config parameters, t_dongle *dongles,
+	long long start_time);
 void	create_dongles(t_config parameters, t_dongle *dongles);
 
 #endif
