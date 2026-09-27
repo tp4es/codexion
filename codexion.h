@@ -6,7 +6,7 @@
 /*   By: tide.oli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 13:12:13 by tide.oli          #+#    #+#             */
-/*   Updated: 2026/09/22 10:53:21 by tide.oli         ###   ########.fr       */
+/*   Updated: 2026/09/23 07:49:27 by tide.oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,28 @@ typedef struct coders
 	t_dongle	*dongle;
 }	t_coder;
 
-typedef	struct heap
+typedef struct request
 {
-	typedef	struct heap *order;
-	int					id_request;
-	t_coder				coder;
+    t_coder		*coder;
+    int		request_id;
+    long long	priority;
+}	t_request;
+
+typedef struct heap
+{
+    t_request	*items;
+    int		size;
+    int		capacity;
 }	t_heap;
 
+typedef struct scheduler
+{
+    t_heap			heap;
+    pthread_mutex_t	mutex;
+    pthread_cond_t	condition;
+    t_dongle		*dongles;
+    int			dongle_count;
+}	t_scheduler;
 
 void	coder_act(t_config parameters, t_dongle *dongles,
 	long long start_time);
