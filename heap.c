@@ -1,72 +1,55 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   heap.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tide.oli <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/22 09:50:08 by tide.oli          #+#    #+#             */
-/*   Updated: 2026/09/27 14:02:31 by tide.oli         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "codexion.h"
 
-# include "codexion.h"
-
-static int	numbers[4];
-static int	father;
-static int	left;
-static int	right;
-static int	tmp;
-static int	i;
-
-void	heap_queue(int **test)
+static int	before(t_sim *sim, int first, int second)
 {
-	int	ordered;
-	
-	ordered = 0;
-	while (ordered == 0)
+	long long	one;
+	long long	two;
+
+	if (!sim->cfg.edf)
+		return (sim->heap[first].order < sim->heap[second].order);
+	one = sim->heap[first].coder->last_compile + sim->cfg.burnout;
+	two = sim->heap[second].coder->last_compile + sim->cfg.burnout;
+	if (one == two)
+		return (sim->heap[first].order < sim->heap[second].order);
+	return (one < two);
+}
+
+int	heap_push(t_sim *sim, t_coder *coder)
+{
+	int	index;
+	int	parent;
+
+	index = sim->heap_size++; sim->heap[index].coder = coder;
+	sim->heap[index].order = sim->sequence++;
+	while (index)
 	{
-		i = 1;
-		ordered = 1;
-		while(number[i])
-		{
-			father = ((i - 1) / 2);
-			if (number[i] > number[father])
-			{
-				ordered = 1;
-				tmp = number[i];
-				number[i] = number[father];
-				number[father] = tmp;
-			}
-			i++;
-		}		
+		parent = (index - 1) / 2;
+		if (before(sim, parent, index)) break ;
+		sim->heap[index] = sim->heap[parent]; sim->heap[parent] = (t_request){coder, sim->sequence - 1};
+		index = parent;
 	}
+	return (0);
 }
 
-void	heap_pop(int **numbers, int size)
+void	heap_pop(t_sim *sim)
 {
-	int	*c_number;
-	int	*temp;
+	int	index;
+	int	child;
+	t_request	last;
 
-	c_number = malloc(sizeof(int) * (size - 1));
-	if (!c_number)
-		return ;
-	temp = (*number + 1);
-	memcpy(c_number, temp);
-	*number = c_number;
-	heap_queue(numbers);
-	free(c_number);
+	last = sim->heap[--sim->heap_size]; index = 0;
+	while (index * 2 + 1 < sim->heap_size)
+	{
+		child = index * 2 + 1;
+		if (child + 1 < sim->heap_size && before(sim, child + 1, child)) child++;
+		if (before(sim, child, sim->heap_size)) sim->heap[index] = sim->heap[child];
+		else break ;
+		index = child;
+	}
+	sim->heap[index] = last;
 }
 
-void	heap_add(int **numbers, int size, int n_number)
+int	heap_first(t_sim *sim, t_coder *coder)
 {
-	int	*c_number;
-
-	c_number = malloc(sizeof(int) * (size + 1));
-	memcpy(c_number, *numbers);
-	c_number[size] = n_number;
-	*numbers = malloc(sizeof(int) * (size + 1));
-	*number = c_number;
-	heap_queue(numbers);
-	free(c_number);
+	return (sim->heap_size && sim->heap[0].coder == coder);
 }
