@@ -19,7 +19,7 @@ static int	valid_number(char *value)
 static int	load_number(char *value, int *number)
 {
 	long	loaded;
-	int	index;
+	int		index;
 
 	if (!valid_number(value))
 		return (1);
@@ -44,9 +44,11 @@ int	parse_config(int argc, char **argv, t_config *cfg)
 
 	if (argc != 9)
 		return (1);
-	values[0] = &cfg->coders; values[1] = &cfg->burnout; values[2] = &cfg->compile;
-	values[3] = &cfg->debug; values[4] = &cfg->refactor; values[5] = &cfg->required;
-	values[6] = &cfg->cooldown; index = 0;
+	(values[0] = &cfg->coders, values[1] = &cfg->burnout);
+	(values[2] = &cfg->compile, values[3] = &cfg->debug);
+	(values[4] = &cfg->refactor, values[5] = &cfg->required);
+	(values[6] = &cfg->cooldown);
+	index = 0;
 	while (index < 7)
 	{
 		if (load_number(argv[index + 1], values[index]))
@@ -55,8 +57,11 @@ int	parse_config(int argc, char **argv, t_config *cfg)
 	}
 	if (!cfg->coders || !cfg->burnout || !cfg->required)
 		return (1);
-	if (!strcmp(argv[8], "fifo")) cfg->edf = 0;
-	else if (!strcmp(argv[8], "edf")) cfg->edf = 1;
-	else return (1);
+	if (!strcmp(argv[8], "fifo"))
+		cfg->edf = 0;
+	else if (!strcmp(argv[8], "edf"))
+		cfg->edf = 1;
+	else
+		return (1);
 	return (0);
 }

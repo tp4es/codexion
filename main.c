@@ -4,7 +4,7 @@ int	main(int argc, char **argv)
 {
 	t_config	config;
 	t_sim		sim;
-	int		status;
+	int			status;
 
 	if (parse_config(argc, argv, &config))
 		return (printf("Invalid arguments\n"), 1);

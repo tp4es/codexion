@@ -17,7 +17,8 @@ static int	allocate_arrays(t_sim *sim)
 
 int	init_sim(t_sim *sim, t_config cfg)
 {
-	memset(sim, 0, sizeof(*sim)); sim->cfg = cfg;
+	memset(sim, 0, sizeof(*sim));
+	sim->cfg = cfg;
 	if (allocate_arrays(sim))
 		return (free(sim->coders), free(sim->threads), free(sim->heap), free(sim->dongles), free(sim->ready), 1);
 	if (pthread_mutex_init(&sim->lock, NULL)) return (destroy_sim(sim), 1);

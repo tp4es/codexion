@@ -4,11 +4,12 @@ void	*ft_calloc(size_t count, size_t size)
 {
 	void	*memory;
 
-	if (size && count > (size_t)-1 / size)
+	if (size && count > ((size_t)-1) / size)
 		return (NULL);
 	memory = malloc(count * size);
-	if (memory)
-		memset(memory, 0, count * size);
+	if (!memory)
+		return (NULL);
+	memset(memory, 0, count * size);
 	return (memory);
 }
 
@@ -22,13 +23,18 @@ long long	now_ms(void)
 
 int	ms_sleep(long long duration)
 {
-	while (duration > 0)
-	{
-		if (usleep((useconds_t)(duration > 1000 ? 1000 : duration) * 1000))
-			return (1);
-		duration -= 1000;
-	}
-	return (0);
+    long long	chunk;
+
+    while (duration > 0)
+    {
+        chunk = duration;
+        if (chunk > 1000)
+            chunk = 1000;
+        if (usleep((useconds_t)chunk * 1000) != 0)
+            return (1);
+        duration -= chunk;
+    }
+    return (0);
 }
 
 void	log_state(t_sim *sim, int id, char *state)
