@@ -27,8 +27,8 @@ typedef struct s_coder {
 } t_coder;
 
 typedef struct s_request {
-	t_coder *coder;
-	long long order;
+	t_coder		*coder;
+	long long	order;
 } t_request;
 
 typedef struct s_sim {

@@ -31,7 +31,7 @@ static int	burned(t_sim *sim, int *id)
 void	*monitor_routine(void *arg)
 {
 	t_sim	*sim;
-	int	id;
+	int		id;
 
 	sim = arg;
 	while (1)
@@ -40,8 +40,12 @@ void	*monitor_routine(void *arg)
 		if (finished(sim) || burned(sim, &id))
 		{
 			if (finished(sim)) id = -1;
-			sim->stopped = 1; pthread_cond_broadcast(&sim->changed);
-			pthread_mutex_unlock(&sim->lock); if (id >= 0) log_state(sim, id, "burnedout"); return (NULL);
+			sim->stopped = 1;
+			pthread_cond_broadcast(&sim->changed);
+			pthread_mutex_unlock(&sim->lock);
+			if (id >= 0)
+				log_state(sim, id, "burnedout");
+			return (NULL);
 		}
 		pthread_mutex_unlock(&sim->lock); usleep(500);
 	}
